@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>react中components的使用</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.23.1/babel.js"></script>
+
+<body>
+	<div id="container"></div>
+</body>
+<script type="text/babel">
+	
+	/*
+		1、{}为取值表达式，不使用{}，formatName不会执行，
+		2、getGreeting函数中再次调用formatName函数，
+		3、JSX语法特点：
+			JSX 让你可以用 HTML 语法去写 JavaScript 函数调用。
+			React.createElement('a', {href: 'http://facebook.github.io/react/'}, 'Hello React!')。通过 JSX 这就变成了 <a href="http://facebook.github.io/react/">Hello React!</a>。
+			执行写html，而不用字符串拼接，而且可以在html中直接取值、调用函数等
+	*/
+
+
+	//components 就像js 函数，他接收属性 props。
+
+	/*
+		组件的三种定义方式：1、函数式定义的无状态组件，2、es5原生方式React.createClass定义的组件，3、es6形式的extends React.Component定义的组件
+		三种组件的区别：
+			1、函数式定义的无状态组件：为了创建纯展示组件，这种组件只负责根据传入的props来展示，不涉及到要state状态的操作，组件因为有没状态(state)，因而不会被实例化，无法访问组件this中的对象，例如：this.ref、this.state等均不能访问，
+			2、React.createClass是react刚开始推荐的创建组件的方式，这是ES5的原生的JavaScript来实现的React组件
+			var InputControlES5 = React.createClass({
+			    propTypes: {//定义传入props中的属性各种类型
+			        initialValue: React.PropTypes.string
+			    },
+			    defaultProps: { //组件默认的props对象
+			        initialValue: ''
+			    },
+			    // 设置 initial state
+			    getInitialState: function() {//组件相关的状态对象
+			        return {
+			            text: this.props.initialValue || 'placeholder'
+			        };
+			    },
+			    handleChange: function(event) {
+			    	console.log(this); //this represents react component instance
+			        this.setState({ //this represents react component instance
+			            text: event.target.value
+			        });
+			    },
+			    render: function() {
+			        return (
+			            <div>
+			                Type something:
+			                <input onChange={this.handleChange} value={this.state.text} />
+			            </div>
+			        );
+			    }
+			});
+			InputControlES6.propTypes = {
+			    initialValue: React.PropTypes.string
+			};
+			InputControlES6.defaultProps = {
+			    initialValue: ''
+			};
+			3、
+			class InputControlES6 extends React.Component {
+			    constructor(props) {
+			        super(props);
+
+			        // 设置 initial state
+			        this.state = {
+			            text: props.initialValue || 'placeholder'
+			        };
+
+			        // ES6 类中函数必须手动绑定
+			        this.handleChange = this.handleChange.bind(this);
+			    }
+
+			    static defaultProps = {
+			    	name: "wangbiaoxuan"
+			    }
+
+			    static propTypes = {
+			    	name: React.PropTypes.string
+			    }
+
+			    handleChange(event) {
+			    	console.log(this); //  如不手动绑定则this指向null！
+			        this.setState({
+			            text: event.target.value
+			        });
+			    }
+
+			    render() {
+			        return (
+			            <div>
+			                Type something:
+			                <input onChange={this.handleChange}
+			               value={this.state.text} />
+			            </div>
+			        );
+			    }
+			}
+			InputControlES6.propTypes = {
+			    initialValue: React.PropTypes.string
+			};
+			InputControlES6.defaultProps = {
+			    initialValue: ''
+			};
+
+	*/
+	//这个最简单的就是Welcome components，这种组件叫做无状态组件
+	/*
+		function Welcome(props) {
+		  	return <h1>Hello, {props.name}</h1>;
+		}
+	*/
+
+	//也可以使用es6中的类class 来定义组件 components，这种组件叫做extends React.Component定义的组件。
+	/*
+		class Welcome extends React.Component {
+		  	render() {
+		    	return <h1>Hello, {this.props.name}</h1>;
+		  	}
+		}
+	*/
+
+	//如何使用自定义组件呢？
+	//1、使用无状态方式定义组件，
+	function Welcome(props) {
+	  	return <h1>Hello, {props.name}</h1>;
+	}
+	//2、element中使用组件
+	const element = (
+		<div>
+			<Welcome name="Sara1" />
+			<Welcome name="Sara2" />
+			<Welcome name="Sara3" />
+		</div>
+	);
+	//3、ReactDOM中render组件
+	ReactDOM.render(
+  		element,
+  		document.getElementById('container')
+	);
+
+
+</script>
+</html>

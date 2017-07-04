@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>a stateful component with es5 and es6</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.23.1/babel.js"></script>
+
+<body>
+	<div id="container"></div>
+</body>
+<script type="text/babel">
+	//2、使用es5的React.createClass
+	/*
+	var Timer = React.createClass({
+		getInitialState: function(){
+			return {
+				time: 0
+			}
+		},
+		add: function(){
+			this.setState(function(prevState){
+				return {
+					time: prevState.time + 1
+				}
+			})
+			
+
+			this.setState( 
+				{
+					time: this.state.time + 1
+				}
+			)
+		},
+		componentDidMount: function(){
+			setInterval(function(){
+				this.setState( 
+					{
+						time: this.state.time + 1
+					}
+				)
+			}.bind(this), 1000);
+		},
+		render: function(){
+			return <h1>time: {this.state.time}</h1>
+		}
+	});
+	ReactDOM.render(<Timer />, document.getElementById('container'))
+	*/
+
+	//3、使用es6的extends React.component
+
+	class Timer extends React.Component {
+		constructor (props){
+			super(props);
+			this.state = {
+				time: 0
+			}
+		}
+		componentDidMount (){
+			setInterval(function(){
+				this.setState({
+					time: this.state.time + 1
+				})
+			}.bind(this),1000)
+		}
+		render (){
+			return <h1>time: {this.state.time}</h1>
+		}
+	}
+	ReactDOM.render(<Timer />, document.getElementById('container'))
+	
+</script>
+</html>

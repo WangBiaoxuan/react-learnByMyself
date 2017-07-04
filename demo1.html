@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>JSX语法的学习</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.23.1/babel.js"></script>
+
+<body>
+	<div id="container"></div>
+</body>
+<script type="text/jsx">
+	
+	/*
+		1、{}为取值表达式，不使用{}，formatName不会执行，
+		2、getGreeting函数中再次调用formatName函数，
+		3、JSX语法特点：
+			JSX 让你可以用 HTML 语法去写 JavaScript 函数调用。
+			React.createElement('a', {href: 'http://facebook.github.io/react/'}, 'Hello React!')。通过 JSX 这就变成了 <a href="http://facebook.github.io/react/">Hello React!</a>。
+			执行写html，而不用字符串拼接，而且可以在html中直接取值、调用函数等
+	*/
+	function formatName(user) {
+		return user.firstName + ' ' + user.lastName;
+	};
+
+	function getGreeting(user) {
+		if (user) {
+	    	return (
+				<h1>
+					Hello, {formatName(user)}!
+				</h1>
+			);
+	  	}
+	  	return (
+	  		<h1>
+	  			Hello, Stranger.
+	  		</h1>
+	  	);
+	};
+
+
+	const user =  {
+		"firstName": "wang",
+		"lastName": "biaoxuan"
+	};
+
+	//()的作用？把保住的物体作为一个整体保住
+	/*
+		const element = (
+			<h1>
+				{getGreeting(user)}
+			</h1>
+		);
+	*/
+	const element = <h1>{getGreeting(user)}</h1>;
+
+	/*
+		element会被Bable转换调用React.createElement()生成React elements。
+	*/
+
+
+	//ReactDOM.render用于渲染react element
+	ReactDOM.render(
+		element,
+		document.getElementById('container')
+	);
+
+</script>
+</html>

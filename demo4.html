@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>react中components的使用</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.23.1/babel.js"></script>
+
+<body>
+	<div id="container"></div>
+</body>
+<script type="text/babel">
+	//1、使用函数式的无状态组件
+	/*
+	function HelloMessage(props){
+		return <div>hello ,{props.name}</div>
+	}
+	ReactDOM.render(<HelloMessage name="wangbiaoxuan"/>, document.getElementById('container'))
+	*/
+
+	//2、使用es5的React.createClass
+	/*
+	var HelloMessage = React.createClass({
+		render: function(){
+			return <div>hello ,{this.props.name}</div>
+		}
+	})
+	ReactDOM.render(<HelloMessage name="wangbiaoxuan"/>, document.getElementById('container'));
+	*/
+
+	//3、使用es6的extends React.component
+	class HelloMessage extends React.Component {
+		constructor (props){
+			super(props);
+		}
+		render (){
+			return <div>hello, {this.props.name}</div>
+		}
+	}
+	ReactDOM.render(<HelloMessage name="wangbiaoxuan"/>, document.getElementById('container'));
+</script>
+</html>

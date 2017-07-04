@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>react render函数的使用</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.23.1/babel.js"></script>
+
+<body>
+	<div id="container"></div>
+</body>
+<script type="text/babel">
+	
+	/*
+		1、{}为取值表达式，不使用{}，formatName不会执行，
+		2、getGreeting函数中再次调用formatName函数，
+		3、JSX语法特点：
+			JSX 让你可以用 HTML 语法去写 JavaScript 函数调用。
+			React.createElement('a', {href: 'http://facebook.github.io/react/'}, 'Hello React!')。通过 JSX 这就变成了 <a href="http://facebook.github.io/react/">Hello React!</a>。
+			执行写html，而不用字符串拼接，而且可以在html中直接取值、调用函数等
+	*/
+
+	var render_dom = function(){
+		const element = (
+			<div>
+				<h1> It is time ：{new Date().toLocaleTimeString()}}</h1>
+			</div>
+		);
+
+		//ReactDOM.render用于渲染react element
+		ReactDOM.render(
+			element,
+			document.getElementById('container')
+		);
+	}
+
+	//setInterval(render_dom,1000);
+	setInterval(function(){
+		render_dom();
+	},1000);
+
+</script>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>ToDo app</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.js"></script>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react-dom.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.23.1/babel.js"></script>
+
+<body>
+	<div id="container"></div>
+</body>
+<script type="text/jsx">
+	/*
+	//1、使用es5的React.createClass
+	var ToDoList = React.createClass({
+		render: function(){
+			return (
+				<ul>
+					{
+						this.props.items.map(function(value){
+							return <li>{value}</li>
+						})
+					}
+				</ul>
+			)
+		}
+	})
+
+	var ToDo = React.createClass({
+		getInitialState: function(){
+			return {
+				inputValue: '',
+				items: []
+			}
+		},
+		submit: function(e){
+			e.preventDefault();
+			this.setState({
+				items: this.state.items.concat(this.state.inputValue),
+				inputValue: ''
+			})
+		},
+		inputChange: function(){
+			this.setState({
+				inputValue: this.refs.input.value
+			})
+		},
+		render: function(){
+			return (
+				<div>
+					<h1>todo</h1>
+					<ToDoList items={this.state.items} />
+					<form onSubmit={this.submit}>
+						<input type="text" ref="input" id="input" onChange={this.inputChange} value={this.state.inputValue} />
+						<button >提交</button> 
+					</form>
+				</div>
+			)
+		}
+	});
+	ReactDOM.render(<ToDo />, document.getElementById('container'))
+	*/
+	
+
+	//2、使用es6的extends React.component
+
+	/*
+	class ToDoList extends React.Component {
+		render (){
+			console.log(this.props.items);
+			return(
+				<ul>
+					{
+						this.props.items.map(function(value){
+							 return <li> {value} </li>
+						})
+					}
+				</ul>
+			)
+		}
+	}
+	*/
+	
+	//使用无状态函数定义组件
+	function ToDoList (props) {
+		return(
+			<ul>
+				{
+					props.items.map(function(value){
+						 return <li> {value} </li>
+					})
+				}
+			</ul>
+		)
+	}
+
+	class ToDo extends React.Component {
+		constructor (props){
+			super(props);
+			this.state = {
+				inputValue: '',
+				items: []
+			};
+			this.inputChange = this.inputChange.bind(this);
+			this.submit = this.submit.bind(this);
+		}
+		componentDidMount (){
+			
+		}
+		inputChange (e){
+			this.setState({
+				inputValue: this.refs.input.value
+			})
+		
+		}
+		submit (e){
+			e.preventDefault();
+			console.log(this.state.inputValue)
+			console.log(this.state.items)
+			//this.setState(function(prev){
+				//console.log(prev.inputValue);
+				//return {
+					//items: prev.items.concat(prev.inputValue),
+					//inputValue: ''
+				//}
+			//})
+			this.setState({
+					items: this.state.items.concat(this.state.inputValue),
+					inputValue: ''
+				}
+			)
+		}
+		render (){
+			return (
+				<div>
+					<h1>TODO</h1>
+					<ToDoList items={this.state.items} />
+					<form onSubmit={this.submit}>
+						<input id="input" type="text" ref="input" name="input" onChange={this.inputChange} value={this.state.inputValue} />
+						<button value="提交">提交</button>
+					</form>
+				</div>
+			);
+		}
+	}
+	ReactDOM.render(<ToDo />, document.getElementById('container'))
+	
+	
+</script>
+</html>
